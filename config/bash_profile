@@ -1,0 +1,98 @@
+function setprompt {
+
+    EXITSTATUS="$?"
+    STARTTITLEBAR="\[\033]0;";
+    ENDTITLEBAR="\007";
+    BOLD="\[\033[1m\]"
+    RED="\[\033[0;31m\]"
+    GREEN="\[\e[0;32m\]"
+    BLUE="\[\e[34m\]"
+    PURPLE="\[\033[35m\]"
+    BLACK="\[\033[m\]"
+
+    NEWLINE="\n"
+
+    #HOST="\h"
+    #USER="\u"
+    #DIR="\w"
+    #DATE="\d"
+    #TIME="\t"
+
+    PROMPT_PRE="${STARTTITLEBAR}\u@$\h:\w${ENDTITLEBAR}\n${RED}\D{%T} ${TZ} ${BLUE}\D{%a %d-%b} ["
+    PROMPT_POST="${BLACK}@${PURPLE}\h${BLACK}]:[${BLUE}\w${BLACK}]"
+
+    if [ "${USER}" == "root" ]
+    then
+      PROMPT_USER="${RED}${BOLD}\u"
+    else
+      PROMPT_USER="${GREEN}\u"
+    fi
+
+    if [ "${EXITSTATUS}" -eq 0 ]
+    then
+       PROMPT_EXIT_STATUS="${GREEN}${EXITSTATUS}"
+    else
+       PROMPT_EXIT_STATUS="${RED}${BOLD}${EXITSTATUS}"
+    fi
+
+    PS1="${PROMPT_PRE}${PROMPT_USER}${PROMPT_POST} [${PROMPT_EXIT_STATUS}${BLACK}]${NEWLINE}\\$ "
+
+    PS2="${BOLD}>${BLACK} "
+}
+
+export TZ=UTC
+# Refresh bash's idea of $TZ for prompt display purposes.
+# As of bash 4.1, this requires running an external command!
+if [[ $- = *i* ]]; then command true; fi
+
+PROMPT_COMMAND=setprompt
+
+#export PS1="\[\033]0;\u@\h: \w\007\n\033[31m\]\t \d [\u@\h:[\033[34m\w\033[31m]\033[0m\n$ "
+#export TERM=vt100
+
+export EDITOR=vi
+export PAGER=less
+
+#export PATH=$PATH:/usr/local/protoc/bin:$HOME/bin
+export GOPATH=${HOME}/go
+export GOBIN=${GOPATH}/bin
+export PATH=${PATH}:${GOBIN}:/usr/local/protoc/bin:$HOME/bin
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "${HOME}/src/google-cloud-sdk/path.bash.inc" ]
+then
+  . ${HOME}/src/google-cloud-sdk/path.bash.inc
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${HOME}/src/google-cloud-sdk/completion.bash.inc" ]
+then
+  . ${HOME}/src/google-cloud-sdk/completion.bash.inc
+fi
+
+# Azure config
+export lpass_azure=7572932856211853995
+export ARM_CLIENT_ID=$(lpass show ${lpass_azure} --field=ARM_CLIENT_ID)
+export ARM_CLIENT_SECRET=$(lpass show ${lpass_azure} --field=ARM_CLIENT_SECRET)
+export ARM_SUBSCRIPTION_ID=$(lpass show ${lpass_azure} --field=ARM_SUBSCRIPTION_ID)
+export ARM_TENANT_ID=$(lpass show ${lpass_azure} --field=ARM_TENANT_ID)
+
+# AWS config
+export lpass_aws=2257392481305858736
+export AWS_SECRET_ACCESS_KEY=$(lpass show ${lpass_aws} --field=AWS_SECRET_ACCESS_KEY)
+export AWS_ACCESS_KEY_ID=$(lpass show ${lpass_aws} --field=AWS_ACCESS_KEY_ID)
+export AWS_REGION=us-west-2
+
+if [ -f "${HOME}/.config/tfe_config" ]
+then
+  . ${HOME}/.config/tfe_config
+fi
+
+export GOOGLE_CLOUD_KEYFILE_JSON=$(ls ~/.config/gcloud/*json)
+
+# hashi command line completion
+complete -C /usr/local/bin/vault vault
+complete -C /usr/local/bin/consul consul
+complete -C /usr/local/bin/terraform terraform
+complete -C /usr/local/bin/packer packer
+complete -C /usr/local/bin/terraform terraform
