@@ -105,15 +105,19 @@ log ${INFO} "You will be prompted to log into LastPass and the Mac App Store as 
 ################################################################################
 # install Xcode Command Line Tools
 # https://github.com/timsutton/osx-vm-templates/blob/ce8df8a7468faa7c5312444ece1b977c1b2f77a4/scripts/xcode-cli-tools.sh
-log ${INFO} "Installing XCode Command Line Tools"
-touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
-PROD=$(softwareupdate -l |
-  grep "\*.*Command Line" |
-  head -n 1 | awk -F"*" '{print $2}' |
-  sed -e 's/^ *//' |
-  tr -d '\n')
-softwareupdate -i "$PROD" --verbose;
-log ${INFO} "Finished installing XCode Command Line Tools"
+
+# cloning this repo will result in Xcode Command Line Tools getting installed.
+
+# log ${INFO} "Installing XCode Command Line Tools"
+# touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+# PROD=$(softwareupdate -l |
+#   grep "\*.*Command Line" |
+#   head -n 1 | awk -F"*" '{print $2}' |
+#   sed -e 's/^ *//' |
+#   tr -d '\n')
+# softwareupdate -i "$PROD" --verbose;
+# log ${INFO} "Finished installing XCode Command Line Tools"
+
 ################################################################################
 
 ################################################################################
