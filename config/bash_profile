@@ -18,7 +18,7 @@ function setprompt {
     #DATE="\d"
     #TIME="\t"
 
-    PROMPT_PRE="${STARTTITLEBAR}\u@$\h:\w${ENDTITLEBAR}\n${RED}\D{%T} ${TZ} ${BLUE}\D{%a %d-%b} ["
+    PROMPT_PRE="${STARTTITLEBAR}\u@$\h:\w${ENDTITLEBAR}\n${RED}\D{%T} ${TZ} ${BLUE}\D{%a %d-%b} ${BLACK}["
     PROMPT_POST="${BLACK}@${PURPLE}\h${BLACK}]:[${BLUE}\w${BLACK}]"
 
     if [ "${USER}" == "root" ]
