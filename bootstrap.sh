@@ -226,6 +226,16 @@ fi
 ################################################################################
 
 ################################################################################
+if [ -f ${gpg-agent_config} ]
+then
+  log ${INFO} "Installing gpg-agent config"
+  mkdir -p ${HOME}/.gnupg
+  cp ${gpg-agent_config} ${HOME}/.gnupg/
+  log ${INFO} "Finished installing gpg-agent config"
+fi
+################################################################################
+
+################################################################################
 log ${INFO} "Logging into LastPass"
 lpass login ${lastpass_account}
 log ${INFO} "Finished logging into LastPass"

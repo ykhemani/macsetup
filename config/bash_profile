@@ -96,3 +96,11 @@ complete -C /usr/local/bin/consul consul
 complete -C /usr/local/bin/terraform terraform
 complete -C /usr/local/bin/packer packer
 complete -C /usr/local/bin/terraform terraform
+
+# gnupg ssh with yubikey
+if [ "$(pgrep -x gpg-agent)" == "" ]
+then
+  eval $(gpg-agent --daemon --enable-ssh-support  --log-file ${HOME}/.gnupg/gpg-agent.log)
+fi
+# this returns
+SSH_AUTH_SOCK=/Users/khemani/.gnupg/S.gpg-agent.ssh; export SSH_AUTH_SOCK;
