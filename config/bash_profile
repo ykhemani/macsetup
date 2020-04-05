@@ -91,10 +91,13 @@ then
   . ${HOME}/.config/tfe_config
 fi
 
-if [ -f "${HOME}/.config/gcloud/*json" ]
-then
-  export GOOGLE_CLOUD_KEYFILE_JSON=$(ls ${HOME}/.config/gcloud/*json)
-fi
+# GCP config
+#if [ -f "${HOME}/.config/gcloud/*json" ]
+#then
+#  export GOOGLE_CLOUD_KEYFILE_JSON=$(ls ${HOME}/.config/gcloud/*json)
+#fi
+export lpass_gcp=9205057975082148366
+export GOOGLE_CREDENTIALS=$(lpass show ${lpass_gcp} --field=json)
 
 # hashi command line completion
 complete -C /usr/local/bin/vault vault
