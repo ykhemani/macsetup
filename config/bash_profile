@@ -40,6 +40,9 @@ function setprompt {
     PS2="${BOLD}>${BLACK} "
 }
 
+# silence zsh message on macOS Catalina
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 export TZ=UTC
 # Refresh bash's idea of $TZ for prompt display purposes.
 # As of bash 4.1, this requires running an external command!
@@ -88,7 +91,10 @@ then
   . ${HOME}/.config/tfe_config
 fi
 
-export GOOGLE_CLOUD_KEYFILE_JSON=$(ls ~/.config/gcloud/*json)
+if [ -f "${HOME}/.config/gcloud/*json" ]
+then
+  export GOOGLE_CLOUD_KEYFILE_JSON=$(ls ${HOME}/.config/gcloud/*json)
+fi
 
 # hashi command line completion
 complete -C /usr/local/bin/vault vault
