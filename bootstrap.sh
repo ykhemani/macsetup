@@ -236,9 +236,9 @@ fi
 ################################################################################
 
 ################################################################################
-log ${INFO} "Logging into LastPass"
-lpass login ${lastpass_account}
-log ${INFO} "Finished logging into LastPass"
+#log ${INFO} "Logging into LastPass"
+#lpass login ${lastpass_account}
+#log ${INFO} "Finished logging into LastPass"
 ################################################################################
 
 ################################################################################
@@ -252,11 +252,10 @@ log ${INFO} "Finished configuring ssh"
 ################################################################################
 
 ################################################################################
-log ${INFO} "Configuring git"
-git config --global user.name $(lpass show ${lpass_github} --field=git_name)
-git config --global user.email $(lpass show ${lpass_github} --field=git_email)
-git config --global github.user $(lpass show ${lpass_github} --field=login)
-git config --global color.ui true
-
-log ${INFO} "Finished configuring git"
+#log ${INFO} "Configuring git"
+#git config --global user.name $(lpass show ${lpass_github} --field=git_name)
+#git config --global user.email $(lpass show ${lpass_github} --field=git_email)
+#git config --global github.user $(lpass show ${lpass_github} --field=login)
+#git config --global color.ui true
+#log ${INFO} "Finished configuring git"
 ################################################################################
