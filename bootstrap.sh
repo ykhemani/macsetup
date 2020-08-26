@@ -18,10 +18,10 @@ function log() {
 # usage
 function usage() {
   echo "Usage: "
-  echo "  $0 <user settings file> <lastpass login email>"
+  echo "  $0 <user settings file>"
   echo ""
   echo "e.g."
-  echo "  $0 example.conf joe@example.com"
+  echo "  $0 example.conf"
 }
 ################################################################################
 
@@ -37,7 +37,7 @@ PATH=${PATH}:/usr/local/bin:/usr/bin:${HOME}/bin
 ################################################################################
 # check command line arguments
 user_settings=$1
-lastpass_account=$2
+#lastpass_account=$2
 error=0
 if [ "${user_settings}" == "" ]
 then
@@ -48,10 +48,10 @@ then
   error=1
 fi
 
-if [ "${lastpass_account}" == "" ]
-then
-  error=1
-fi
+#if [ "${lastpass_account}" == "" ]
+#then
+#  error=1
+#fi
 
 if [ "${error}" == "1" ]
 then
@@ -99,7 +99,7 @@ function hashi() {
 ################################################################################
 # notice
 log ${INFO} "Starting setup"
-log ${INFO} "You will be prompted to log into LastPass and the Mac App Store as part of this setup."
+log ${INFO} "You will be prompted to log into the Mac App Store as part of this setup."
 ################################################################################
 
 ################################################################################
