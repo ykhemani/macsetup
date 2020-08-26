@@ -169,7 +169,7 @@ fi
 
 if [ "${nomad_version}" != "" ]
 then
-  hashi nomad ${nomad_version}
+  hashi nomad ${nomad_version} ${nomad_ent}
 fi
 
 if [ "${terraform_version}" != "" ]
