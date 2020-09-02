@@ -39,5 +39,9 @@ We use the [mas-cli](https://github.com/mas-cli/mas) to install software from th
 ## Use
 
 ```
+git clone https://github.com/ykhemani/macsetup # or use your forked repo
+
+cd macsetup
+
 bash ./bootstrap.sh <config file>
 ```
