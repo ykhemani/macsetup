@@ -124,8 +124,7 @@ log ${INFO} "You will be prompted to log into the Mac App Store as part of this 
 # install homebrew (brew)
 # https://brew.sh
 log ${INFO} "Installing homebrew"
-/usr/bin/ruby -e \
-  "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 log ${INFO} "Finished installing homebrew"
 ################################################################################
 
@@ -187,6 +186,11 @@ then
   hashi envconsul ${envconsul_version}
 fi
 
+if [ "${consul_template_version}" != "" ]
+then
+  hashi consul-template ${consul_template_version}
+fi
+
 log ${INFO} "Finished installing HashiCorp Tools"
 #
 ################################################################################
@@ -226,11 +230,11 @@ fi
 ################################################################################
 
 ################################################################################
-if [ -f ${gpg-agent_config} ]
+if [ -f ${gpg_agent_config} ]
 then
   log ${INFO} "Installing gpg-agent config"
   mkdir -p ${HOME}/.gnupg
-  cp ${gpg-agent_config} ${HOME}/.gnupg/
+  cp ${gpg_agent_config} ${HOME}/.gnupg/
   log ${INFO} "Finished installing gpg-agent config"
 fi
 ################################################################################
@@ -243,6 +247,7 @@ fi
 
 ################################################################################
 log ${INFO} "Configuring ssh"
+mkdir -p ${ssh_dir}
 cat <<EOF >> ${ssh_dir}/${ssh_config}
 Host *
   ServerAliveInterval 60
