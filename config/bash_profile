@@ -56,34 +56,36 @@ PROMPT_COMMAND=setprompt
 export EDITOR=vi
 export PAGER=less
 
-#export PATH=$PATH:/usr/local/protoc/bin:$HOME/bin
 export GOPATH=${HOME}/go
 export GOBIN=${GOPATH}/bin
 export PATH=${PATH}:${GOBIN}:/usr/local/protoc/bin:$HOME/bin
 
-# The next line updates PATH for the Google Cloud SDK.
+# Google Cloud SDK
 if [ -f "${HOME}/src/google-cloud-sdk/path.bash.inc" ]
 then
   . ${HOME}/src/google-cloud-sdk/path.bash.inc
 fi
 
-# The next line enables shell command completion for gcloud.
+# gcloud command completion
 if [ -f "${HOME}/src/google-cloud-sdk/completion.bash.inc" ]
 then
   . ${HOME}/src/google-cloud-sdk/completion.bash.inc
 fi
 
+export VAULT_ADDR=https://ns1.home.seva.cafe:8200
+export VAULT_TOKEN=$(security find-generic-password -wa seva_cafe_vault_token)
+
 # Azure config
-export lpass_azure=7572932856211853995
-export ARM_CLIENT_ID=$(lpass show ${lpass_azure} --field=ARM_CLIENT_ID)
-export ARM_CLIENT_SECRET=$(lpass show ${lpass_azure} --field=ARM_CLIENT_SECRET)
-export ARM_SUBSCRIPTION_ID=$(lpass show ${lpass_azure} --field=ARM_SUBSCRIPTION_ID)
-export ARM_TENANT_ID=$(lpass show ${lpass_azure} --field=ARM_TENANT_ID)
+export vault_azure_path=kv/azure/hashi
+export ARM_CLIENT_ID=$(vault kv get -field ARM_CLIENT_ID ${vault_azure_path})
+export ARM_CLIENT_SECRET=$(vault kv get -field ARM_CLIENT_SECRET ${vault_azure_path})
+export ARM_SUBSCRIPTION_ID=$(vault kv get -field ARM_SUBSCRIPTION_ID ${vault_azure_path})
+export ARM_TENANT_ID=$(vault kv get -field ARM_TENANT_ID ${vault_azure_path})
 
 # AWS config
-export lpass_aws=2257392481305858736
-export AWS_SECRET_ACCESS_KEY=$(lpass show ${lpass_aws} --field=AWS_SECRET_ACCESS_KEY)
-export AWS_ACCESS_KEY_ID=$(lpass show ${lpass_aws} --field=AWS_ACCESS_KEY_ID)
+export vault_aws_path=kv/aws/hashi
+export AWS_SECRET_ACCESS_KEY=$(vault kv get -field AWS_SECRET_ACCESS_KEY ${vault_aws_path})
+export AWS_ACCESS_KEY_ID=$(vault kv get -field AWS_ACCESS_KEY_ID ${vault_aws_path})
 export AWS_REGION=us-west-2
 
 if [ -f "${HOME}/.config/tfe_config" ]
@@ -92,12 +94,8 @@ then
 fi
 
 # GCP config
-#if [ -f "${HOME}/.config/gcloud/*json" ]
-#then
-#  export GOOGLE_CLOUD_KEYFILE_JSON=$(ls ${HOME}/.config/gcloud/*json)
-#fi
-export lpass_gcp=9205057975082148366
-export GOOGLE_CREDENTIALS=$(lpass show ${lpass_gcp} --field=json)
+export vault_gcp_path=kv/gcp/hashi
+export GOOGLE_CREDENTIALS=$(vault kv get -field GOOGLE_CREDENTIALS ${vault_gcp_path})
 
 # hashi command line completion
 complete -C /usr/local/bin/vault vault
