@@ -26,8 +26,6 @@ We use the [mas-cli](https://github.com/mas-cli/mas) to install software from th
 
 * [atom_package_list](config/atom_package_list) contains a list of packages to install for the [Atom text editor](https://atom.io/)
 
-* [aws_config](config/aws_config) contains my [AWS](https://aws.amazon.com/) (which just specifies the AWS region).
-
 * [bash_colors](config/bash_colors) contains some environment variables for setting colors in bash.
 
 * [bash_profile](config/bash_profile) contains my bash profile.
