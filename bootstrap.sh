@@ -257,6 +257,12 @@ log ${INFO} "Finished configuring ssh"
 ################################################################################
 
 ################################################################################
+log ${INFO} "Configuring oh-my-zsh"
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+################################################################################
+
+################################################################################
 #log ${INFO} "Configuring git"
 #git config --global user.name $(lpass show ${lpass_github} --field=git_name)
 #git config --global user.email $(lpass show ${lpass_github} --field=git_email)
